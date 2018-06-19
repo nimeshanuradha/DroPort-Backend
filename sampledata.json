@@ -1,0 +1,22 @@
+[
+    {
+    "id": 1,
+    "name": "A green door",
+    "price": 12.50
+    },
+    {   
+    "id": 2,
+    "name": "A second door",
+    "price": 12.50
+    },
+    {
+    "id": 3,
+    "name": "A third door",
+    "price": 12.50
+    },
+    {
+    "id": 4,
+    "name": "A fourth door",
+    "price": 12.50
+    }
+]
