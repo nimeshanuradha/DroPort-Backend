@@ -167,18 +167,56 @@ user_routes.post('/pil/new',(req,res)=>{
                 
             });
         }
-        // data_arr,(err,results)=>{
-        // if(err) throw err
-        // var results_data = []
-        // results_data = JSON.stringify(results)
-        // console.log(results_data)
-
+        
     )
 
-    // const url = 'http://localhost:4200/login'
-    // res.redirect(url)
-    // res.send(" POST New Pilot ok")
 });
+
+//POST New customer
+user_routes.post('/cus/new',(req,res)=>{
+    var fname = req.body.fname
+    var lname = req.body.lname
+    var dob = req.body.dob
+    var age = req.body.age    
+    var sex = req.body.sex
+    var nic = req.body.nic
+    var mobile_no = req.body.mobile_no
+    var fixed_no = req.body.fixed_no
+    var email = req.body.email
+    var fb_link = req.body.fb_link
+    var username = req.body.username
+    var password = req.body.password
+    var con_password = req.body.con_password
+
+    console.log(fixed_no)
+    
+    var data_arr = [fname,lname,dob,nic,age,mobile_no,fixed_no,sex,email,fb_link,username,password,]
+    var sql1 = "INSERT INTO customer(f_name,l_name,dob,nic,age,phone_mobile,phone_fix,gender,email,fb_profile_link,username,password) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)"
+    // var sql2 = "SELECT LAST_INSERT_ID() as user_id"
+    dbcon.query(sql1,data_arr,function(err,results){
+            if (err) throw err;
+
+            dbcon.query('SELECT LAST_INSERT_ID() as user_id', function(err,results){
+                if (err) throw err;
+                const user_id = results[0];
+                console.log(user_id);
+                // req.login(user_id, function(err){
+                //     res.redirect('pil_main_page')
+                    // res.send(" get user id ok");
+                // });
+                res.json({
+                    id: user_id
+                });
+                
+                
+            });
+        }
+        
+    )
+
+});
+
+
 passport.serializeUser(function(user_id, done) {
     done(null, user_id);
   });
