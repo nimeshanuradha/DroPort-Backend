@@ -20,9 +20,10 @@ var MySQLStore = require('express-mysql-session')(session);
 
 
 app.use(bodyParser.json())
+app.use(cors())
 app.use(express.urlencoded({extended:true}));
 
-var options = {
+var options = { 
     host: 'localhost',
     // port: 3306,
     user: 'root',
@@ -47,11 +48,14 @@ app.use(passport.session());
 
 var request_routes = require('./routes/request_routes')
 var user_routes = require('./routes/user_routes')
+var drone_routes = require('./routes/drone_routes')
 
 
 
 app.use('/api/req',request_routes);
 app.use('/api/user',user_routes);
+app.use('/api/drn',drone_routes);
+
 
 
 

@@ -101,6 +101,7 @@ request_routes.get("/all", (req, res) => {
 		}
 		var result_data = []
 		result_data = JSON.stringify(results)
+		console.log(result_data)
 		res.send(result_data)
 
 	})
