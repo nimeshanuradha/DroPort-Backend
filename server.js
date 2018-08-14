@@ -65,7 +65,7 @@ app.listen(port ,(err)=>{
     if(err){
         console.log("server error")
     }else{
-        console.log('connected')
+        console.log('Listning on PORT :',port)
     }
     
 })

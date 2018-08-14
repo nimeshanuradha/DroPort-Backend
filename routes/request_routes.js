@@ -101,7 +101,7 @@ request_routes.get("/all", (req, res) => {
 		}
 		var result_data = []
 		result_data = JSON.stringify(results)
-		console.log(result_data)
+		// console.log(result_data)
 		res.send(result_data)
 
 	})
@@ -117,7 +117,7 @@ request_routes.get("/all_pending", (req, res) => {
 		if (err) {
 			console.log(err)
 		}
-		console.log(JSON.stringify(results))
+		// console.log(JSON.stringify(results))
 		res.send(results)
 	})
 })
@@ -125,6 +125,7 @@ request_routes.get("/all_pending", (req, res) => {
 //GET one request by ID
 request_routes.get("/:id", (req, res) => {
 	var req_id =  req.params.id
+	console.log( req.params.id)
 	console.log("bakend route id  : "+ req_id)
 	dbcon.query("SELECT * FROM request WHERE req_id=?",req_id, (err, results) => {
 		if (err) {
@@ -134,8 +135,8 @@ request_routes.get("/:id", (req, res) => {
 		var result_data = []
 		result_data = JSON.stringify(results)
 		res.send(result_data)	
-		console.log("bakend route id  : "+ req_id)
-		console.log("data in backend : "+ result_data)
+		// console.log("bakend route id  : "+ req_id)
+		// console.log("data in backend : "+ result_data)
 		
 
 	})

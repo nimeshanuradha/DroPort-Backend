@@ -5,14 +5,14 @@ var dbconnection = mysql.createConnection({
     user: 'root',
     password: '',
     database: 'droport_new',
-    debug: true
+    // debug: true
 });
 
 dbconnection.connect(function(err){
     if(err){
         console.log('Error connect DB')
     }else{
-        console.log('connected')
+        console.log('connected to Database')
     }
     
 });
