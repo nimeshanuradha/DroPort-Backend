@@ -4,8 +4,8 @@
 const request_routes = require('express').Router();
 const dbcon = require('../dbconnection')
 
-
-function get_last_req_id() {
+// GET last Requst ID
+function get_last_req_id(){
 	return new Promise(function (resolve, reject) {
 		dbcon.query('SELECT req_id as id FROM request ORDER BY req_id DESC LIMIT 1', (err, rows) => {
 			console.log("in qry " + rows[0].id)
