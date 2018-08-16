@@ -92,7 +92,7 @@ request_routes.post('/new', (req, res) => {
 
 })
 
-//GET All requests
+// GET All requests
 request_routes.get("/all", (req, res) => {
 
 	dbcon.query("SELECT * FROM request", (err, results) => {
@@ -110,7 +110,7 @@ request_routes.get("/all", (req, res) => {
 
 })
 
-//GET All pending requests
+// GET All pending requests
 request_routes.get("/all_pending", (req, res) => {
 	console.log("GET All pending requests recieved to back end")
 	dbcon.query("SELECT * FROM request WHERE req_id IN (SELECT req_id FROM req_assigned WHERE own_id IS NULL)", (err, results) => {
@@ -122,7 +122,7 @@ request_routes.get("/all_pending", (req, res) => {
 	})
 })
 
-//GET one request by ID
+// GET one request by ID
 request_routes.get("/:id", (req, res) => {
 	var req_id =  req.params.id
 	console.log( req.params.id)
@@ -131,8 +131,7 @@ request_routes.get("/:id", (req, res) => {
 		if (err) {
 			console.log(err)
 		}
-
-		var result_data = []
+		var result_data
 		result_data = JSON.stringify(results)
 		res.send(result_data)	
 		// console.log("bakend route id  : "+ req_id)
