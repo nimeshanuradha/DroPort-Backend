@@ -4,7 +4,7 @@ const user_routes = require('express').Router();
 const dbcon = require('../dbconnection');
 var passport = require('passport');
 
-//GET All Customers
+// GET All Customers
 user_routes.get('/cus', (req, res) => {
     console.log('user_routes called')
     dbcon.query("SELECT * FROM customer", (err, results) => {
@@ -19,11 +19,11 @@ user_routes.get('/cus', (req, res) => {
     })
 })
 
-//GET Customer by ID
+// GET Customer by ID
 user_routes.get('/cus/:id', (req, res) => {
     console.log('user_routes called')
     var id = req.body.id
-    dbcon.query("SELECT * FROM customer WHERE cus_id=?",id, (err, results) => {
+    dbcon.query("SELECT * FROM customer WHERE cus_id=?", id, (err, results) => {
         if (err) {
             console.log(err)
         }
@@ -35,7 +35,7 @@ user_routes.get('/cus/:id', (req, res) => {
     })
 })
 
-//GET All Pilots
+// GET All Pilots
 user_routes.get('/pil', (req, res) => {
     console.log('user_routes called')
     dbcon.query("SELECT * FROM drone_pilot", (err, results) => {
@@ -50,11 +50,11 @@ user_routes.get('/pil', (req, res) => {
     })
 })
 
-//GET Pilot by ID
+// GET Pilot by ID
 user_routes.get('/pil/:id', (req, res) => {
     console.log('user_routes called')
     var id = req.body.id
-    dbcon.query('SELECT * FROM drone_pilot WHERE pil_id=?',id, (err, results) => {
+    dbcon.query('SELECT * FROM drone_pilot WHERE pil_id=?', id, (err, results) => {
         if (err) {
             console.log(err)
         }
@@ -66,7 +66,7 @@ user_routes.get('/pil/:id', (req, res) => {
     })
 })
 
-//GET All Owners
+// GET All Owners
 user_routes.get('/own', (req, res) => {
     console.log('user_routes called')
     dbcon.query("SELECT * FROM drone_owner", (err, results) => {
@@ -81,11 +81,11 @@ user_routes.get('/own', (req, res) => {
     })
 })
 
-//GET Owner by ID
+// GET Owner by ID
 user_routes.get('/own/:id', (req, res) => {
     console.log('user_routes called')
     var id = req.body.id
-    dbcon.query("SELECT * FROM drone_owner WHERE own_id=?",id, (err, results) => {
+    dbcon.query("SELECT * FROM drone_owner WHERE own_id=?", id, (err, results) => {
         if (err) {
             console.log(err)
         }
@@ -97,7 +97,7 @@ user_routes.get('/own/:id', (req, res) => {
     })
 })
 
-//GET All Admins
+// GET All Admins
 user_routes.get('/admin', (req, res) => {
     console.log('user_routes called')
     dbcon.query("SELECT * FROM admin", (err, results) => {
@@ -112,11 +112,11 @@ user_routes.get('/admin', (req, res) => {
     })
 })
 
-//GET Admin by ID
+// GET Admin by ID
 user_routes.get('/admin/:id', (req, res) => {
     console.log('user_routes called')
     var id = req.body.id
-    dbcon.query("SELECT * FROM admin WHERE adm_id=?",id, (err, results) => {
+    dbcon.query("SELECT * FROM admin WHERE adm_id=?", id, (err, results) => {
         if (err) {
             console.log(err)
         }
@@ -128,12 +128,12 @@ user_routes.get('/admin/:id', (req, res) => {
     })
 })
 
-//POST New Pilot
-user_routes.post('/pil/new',(req,res)=>{
+// POST New Pilot
+user_routes.post('/pil/new', (req, res) => {
     var fname = req.body.firstname
     var lname = req.body.lastname
     var dob = req.body.dob
-    var age = req.body.age    
+    var age = req.body.age
     var sex = req.body.sex
     var nic = req.body.nic
     var mobile_no = req.body.mobile_no
@@ -142,42 +142,42 @@ user_routes.post('/pil/new',(req,res)=>{
     var fb_link = req.body.fb_link
     var username = req.body.username
     var password = req.body.password
-    var con_password = req.body.con_password
+    var user_type = "pilot";
 
     console.log(fname)
 
-    var data_arr = [username,password,fname,lname,dob,age,sex,nic,mobile_no,fixed_no,email,fb_link]
+    var data_arr = [username, password, fname, lname, dob, age, sex, nic, mobile_no, fixed_no, email, fb_link]
     var sql1 = "INSERT INTO drone_pilot(username ,password ,f_name ,l_name ,dob ,age ,sex ,nic ,mobile_no ,fixed_no ,email ,fb_link) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)"
     // var sql2 = "SELECT LAST_INSERT_ID() as user_id"
-    dbcon.query(sql1,data_arr,function(err,results){
-            if (err) throw err;
+    dbcon.query(sql1, data_arr, function (err, results) {
+        if (err) throw err;
 
-            dbcon.query('SELECT LAST_INSERT_ID() as user_id', function(err,results){
-                if (err) throw err;
-                const user_id = results[0];
-                console.log(user_id);
-                // req.login(user_id, function(err){
-                //     res.redirect('pil_main_page')
-                    // res.send(" get user id ok");
-                // });
-                res.json({
-                    id: user_id
-                });
-                
-                
+        dbcon.query('SELECT LAST_INSERT_ID() as user_id', function (err, results) {
+            if (err) throw err;
+            const user_id = results[0];
+            console.log(user_id);
+            // req.login(user_id, function(err){
+            //     res.redirect('pil_main_page')
+            // res.send(" get user id ok");
+            // });
+            res.json({
+                id: user_id
             });
-        }
-        
+
+
+        });
+    }
+
     )
 
 });
 
-//POST New customer
-user_routes.post('/cus/new',(req,res)=>{
-    var fname = req.body.fname
-    var lname = req.body.lname
+// POST New customer
+user_routes.post('/cus/new', (req, res) => {
+    var f_name = req.body.fname
+    var l_name = req.body.lname
     var dob = req.body.dob
-    var age = req.body.age    
+    var age = req.body.age
     var sex = req.body.sex
     var nic = req.body.nic
     var mobile_no = req.body.mobile_no
@@ -186,44 +186,90 @@ user_routes.post('/cus/new',(req,res)=>{
     var fb_link = req.body.fb_link
     var username = req.body.username
     var password = req.body.password
-    var con_password = req.body.con_password
+    var user_type = "customer";
 
-    console.log(fixed_no)
-    
-    var data_arr = [fname,lname,dob,nic,age,mobile_no,fixed_no,sex,email,fb_link,username,password,]
+
+    var data_arr_1 = [f_name, l_name, dob, nic, age, mobile_no, fixed_no, sex, email, fb_link, username, password,]
     var sql1 = "INSERT INTO customer(f_name,l_name,dob,nic,age,phone_mobile,phone_fix,gender,email,fb_profile_link,username,password) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)"
     // var sql2 = "SELECT LAST_INSERT_ID() as user_id"
-    dbcon.query(sql1,data_arr,function(err,results){
-            if (err) throw err;
-
-            dbcon.query('SELECT LAST_INSERT_ID() as user_id', function(err,results){
-                if (err) throw err;
-                const user_id = results[0];
-                console.log(user_id);
-                // req.login(user_id, function(err){
-                //     res.redirect('pil_main_page')
-                    // res.send(" get user id ok");
-                // });
-                res.json({
-                    id: user_id
-                });
-                
-                
-            });
+    dbcon.query(sql1, data_arr_1, function (err, results) {
+        if (err) {
+            console.log(err);
         }
-        
-    )
+
+        // dbcon.query('SELECT LAST_INSERT_ID() as user_id', function (err, results) {
+        //     if (err) throw err;
+        //     let user_id = results[0];
+        // });
+        // console.log(user_id);
+    })
+    var data_arr_2 = [username,password,user_type,f_name,l_name]
+    var sql2 = "INSERT INTO user_credentials(username,password,user_type,f_name,l_name) VALUES(?,?,?,?,?)"
+    dbcon.query(sql2,data_arr_2, function(err, results){
+        if (err) {
+            console.log(err);
+        }else{
+            res.send({message:"successfilly registered"})
+        }
+    })
+
+
 
 });
 
 
-passport.serializeUser(function(user_id, done) {
-    done(null, user_id);
-  });
-  
-passport.deserializeUser(function(user_id, done) {
-    done(null, user_id);
+
+
+// POST New owner
+user_routes.post('/own/new', (req, res) => {
+
+    var f_name = req.body.fname
+    var l_name = req.body.lname
+    var dob = req.body.dob
+    var age = req.body.age
+    var sex = req.body.sex
+    var nic = req.body.nic
+    var mobile_no = req.body.mobile_no
+    var fixed_no = req.body.fixed_no
+    var email = req.body.email
+    var fb_link = req.body.fb_link
+    var username = req.body.username
+    var password = req.body.password
+    var user_type = "owner";
+    var drn_id = null
+    var no_of_drones = 0
+    var rating = 0
+    var review = " "
+
+
+    var data_arr_1 = [f_name, l_name, dob, nic, age, mobile_no, fixed_no, sex, email, fb_link, username, password,drn_id,no_of_drones,review]
+    var sql1 = "INSERT INTO drone_owner(fname,lname,dob,nic,age,phone_mobile,phone_fix,gender,email,fb_profile_link,username,password,drn_id,no_of_drones,review) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+    // var sql2 = "SELECT LAST_INSERT_ID() as user_id"
+    dbcon.query(sql1, data_arr_1, function (err, results) {
+        if (err) {
+            console.log(err);
+        }
+
+        // dbcon.query('SELECT LAST_INSERT_ID() as user_id', function (err, results) {
+        //     if (err) throw err;
+        //     let user_id = results[0];
+        // });
+        // console.log(user_id);
+    })
+    var data_arr_2 = [username,password,user_type,f_name,l_name]
+    var sql2 = "INSERT INTO user_credentials(username,password,user_type,f_name,l_name) VALUES(?,?,?,?,?)"
+    dbcon.query(sql2,data_arr_2, function(err, results){
+        if (err) {
+            console.log(err);
+        }else{
+            res.send({message:"successfilly registered"})
+        }
+    })
+
+
 
 });
+
+
 
 module.exports = user_routes;
