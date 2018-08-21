@@ -104,10 +104,10 @@ user_routes.get('/admin', (req, res) => {
         if (err) {
             console.log(err)
         }
-        var all_admin_arr = []
-        all_admin_arr = JSON.stringify(results)
-        console.log(all_admin_arr)
-        res.send(all_admin_arr)
+        var restricted_area = []
+        restricted_area = JSON.stringify(results)
+        console.log(restricted_area)
+        res.send(restricted_area)
 
     })
 })
@@ -203,13 +203,13 @@ user_routes.post('/cus/new', (req, res) => {
         // });
         // console.log(user_id);
     })
-    var data_arr_2 = [username,password,user_type,f_name,l_name]
+    var data_arr_2 = [username, password, user_type, f_name, l_name]
     var sql2 = "INSERT INTO user_credentials(username,password,user_type,f_name,l_name) VALUES(?,?,?,?,?)"
-    dbcon.query(sql2,data_arr_2, function(err, results){
+    dbcon.query(sql2, data_arr_2, function (err, results) {
         if (err) {
             console.log(err);
-        }else{
-            res.send({message:"successfilly registered"})
+        } else {
+            res.send({ message: "successfilly registered" })
         }
     })
 
@@ -242,7 +242,7 @@ user_routes.post('/own/new', (req, res) => {
     var review = " "
 
 
-    var data_arr_1 = [f_name, l_name, dob, nic, age, mobile_no, fixed_no, sex, email, fb_link, username, password,drn_id,no_of_drones,review]
+    var data_arr_1 = [f_name, l_name, dob, nic, age, mobile_no, fixed_no, sex, email, fb_link, username, password, drn_id, no_of_drones, review]
     var sql1 = "INSERT INTO drone_owner(fname,lname,dob,nic,age,phone_mobile,phone_fix,gender,email,fb_profile_link,username,password,drn_id,no_of_drones,review) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
     // var sql2 = "SELECT LAST_INSERT_ID() as user_id"
     dbcon.query(sql1, data_arr_1, function (err, results) {
@@ -256,19 +256,73 @@ user_routes.post('/own/new', (req, res) => {
         // });
         // console.log(user_id);
     })
-    var data_arr_2 = [username,password,user_type,f_name,l_name]
+    var data_arr_2 = [username, password, user_type, f_name, l_name]
     var sql2 = "INSERT INTO user_credentials(username,password,user_type,f_name,l_name) VALUES(?,?,?,?,?)"
-    dbcon.query(sql2,data_arr_2, function(err, results){
+    dbcon.query(sql2, data_arr_2, function (err, results) {
         if (err) {
             console.log(err);
-        }else{
-            res.send({message:"successfilly registered"})
+        } else {
+            res.send({ message: "successfilly registered" })
         }
     })
 
+});
 
+
+
+
+user_routes.post('/new_area', (req, res) => {
+    console.log('data recieved to back end')
+
+    var location = req.body.location
+
+    var area_data = [location]
+    console.log(area_data)
+
+    var sql3 = "INSERT INTO restricted_areas(location) VALUES(?)"
+    dbcon.query(sql3, area_data, function (err, results) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send({ message: "successfilly added" })
+        }
+    })
 
 });
+
+
+
+// user_routes.get('/pil', (req, res) => {
+//     console.log('user_routes called')
+//     dbcon.query("SELECT * FROM restricted_areas", (err, results) => {
+//         if (err) {
+//             console.log(err)
+//         }
+//         var all_pil_arr = []
+//         all_pil_arr = JSON.stringify(results)
+//         console.log(all_pil_arr)
+//         res.send(all_pil_arr)
+
+//     })
+// })
+
+
+user_routes.get('/getArea', (req, res) => {
+    console.log('user_routes called')
+    dbcon.query("SELECT * FROM restricted_areas", (err, results) => {
+        if (err) {
+            console.log(err)
+        }
+        var restricted_area = []
+        restricted_area = JSON.stringify(results)
+        console.log(restricted_area)
+        res.send(restricted_area)
+
+    })
+})
+
+
+
 
 
 
